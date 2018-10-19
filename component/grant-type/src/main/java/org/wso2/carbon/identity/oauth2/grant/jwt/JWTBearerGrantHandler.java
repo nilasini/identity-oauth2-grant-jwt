@@ -391,7 +391,7 @@ public class JWTBearerGrantHandler extends AbstractAuthorizationGrantHandler {
      * @param identityProvider Identity provider
      * @return token endpoint alias
      */
-    private String getTokenEndpointAlias(IdentityProvider identityProvider) {
+    protected String getTokenEndpointAlias(IdentityProvider identityProvider) {
         Property oauthTokenURL = null;
         String tokenEndPointAlias = null;
         if (IdentityApplicationConstants.RESIDENT_IDP_RESERVED_NAME.equals(
@@ -635,8 +635,18 @@ public class JWTBearerGrantHandler extends AbstractAuthorizationGrantHandler {
         return true;
     }
 
-    private void handleException(String errorMessage) throws IdentityOAuth2Exception {
+    protected void handleException(String errorMessage) throws IdentityOAuth2Exception {
         log.error(errorMessage);
         throw new IdentityOAuth2Exception(errorMessage);
+    }
+
+    protected void validateAudience(String tokenEndPointAlias, IdentityProvider identityProvider,
+                                    List<String> audience) throws IdentityOAuth2Exception {
+
+    }
+
+    public String getTenantDomain() {
+
+        return tenantDomain;
     }
 }
